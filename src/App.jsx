@@ -1,4 +1,4 @@
-import { act, useState } from "react";
+import { act, useEffect, useState } from "react";
 import "./App.css";
 
 import { data } from "./data";
@@ -8,6 +8,16 @@ const App = () => {
   const handlePrev = () => {
     setActiveImg((activeImg - 1 + data.length) % data.length);
   };
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      handleNext();
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [activeImg]);
 
   const handleNext = () => {
     setActiveImg((activeImg + 1) % data.length);
